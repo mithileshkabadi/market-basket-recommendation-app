@@ -2,21 +2,22 @@ import streamlit as st
 import pandas as pd
 import ast
 
-# -------------------------
-# Page Config
-# -------------------------
-st.set_page_config(page_title="Smart Recommendation System", layout="centered")
-
-# -------------------------
-# Load Rules (Model)
-# -------------------------x
 @st.cache_data
 def load_rules():
     rules = pd.read_csv("rules.csv")
 
-    # Convert string → list
-    rules['antecedents'] = rules['antecedents'].apply(ast.literal_eval)
-    rules['consequents'] = rules['consequents'].apply(ast.literal_eval)
+    # Drop bad rows first
+    rules = rules.dropna(subset=['antecedents', 'consequents'])
+
+    # Safe conversion function
+    def safe_eval(x):
+        try:
+            return list(ast.literal_eval(x))
+        except:
+            return []
+
+    rules['antecedents'] = rules['antecedents'].apply(safe_eval)
+    rules['consequents'] = rules['consequents'].apply(safe_eval)
 
     return rules
 
