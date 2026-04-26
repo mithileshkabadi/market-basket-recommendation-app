@@ -135,6 +135,3 @@ with col2:
     - Optimize cross-selling strategies  
     """)
 
-# Footer
-st.markdown("---")
-st.markdown("Built using Apriori + Streamlit | Data Science + Data Engineering Project")
