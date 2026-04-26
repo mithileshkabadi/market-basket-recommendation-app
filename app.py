@@ -5,6 +5,7 @@ import ast
 @st.cache_data
 def load_rules():
     rules = pd.read_csv("rules.csv")
+    return rules
 
     # Drop bad rows first
     rules = rules.dropna(subset=['antecedents', 'consequents'])
