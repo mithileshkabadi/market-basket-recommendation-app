@@ -2,6 +2,14 @@ import streamlit as st
 import pandas as pd
 import ast
 
+rules['antecedents'] = rules['antecedents'].apply(
+    lambda x: ast.literal_eval(x) if isinstance(x, str) else x
+)
+
+rules['consequents'] = rules['consequents'].apply(
+    lambda x: ast.literal_eval(x) if isinstance(x, str) else x
+)
+
 @st.cache_data
 def load_rules():
     rules = pd.read_csv("rules.csv")
